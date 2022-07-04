@@ -41,7 +41,7 @@ export default function TextForm(props) {
         let trimmed = text;
         trimmed = trimmed.replace(/\s+/g, " ");
         let words = trimmed.split(" ");
-        return (words.length * 0.008).toFixed(2);
+        return words[0] === "" ? 0.00 : (words.length * 0.008).toFixed(2);
     }
     const onChanged = (event) => {
         console.log("onChanged clicked");
