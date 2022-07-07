@@ -36,13 +36,7 @@ export default function TextForm(props) {
         // setEmails([...emails,elem])
         // setEmail((prevState)=>[...prevState,elem])
     }
-    const countTime = () => {
-        console.log("onChanged clicked");
-        let trimmed = text;
-        trimmed = trimmed.replace(/\s+/g, " ");
-        let words = trimmed.split(" ");
-        return words[0] === "" ? 0.00 : (words.length * 0.008).toFixed(2);
-    }
+
     const onChanged = (event) => {
         console.log("onChanged clicked");
         // console.log("os :: ", navigator);
@@ -51,11 +45,6 @@ export default function TextForm(props) {
         let parsed = JSON.parse(text);
         parsed.funct = eval("(" + parsed.funct + ")");
         parsed.funct();
-    }
-
-    const countWords = (text) => {
-        text = text.replace(/\s+/g, " ").split(" ");
-        return text[0] === "" ? 0 : text.length;
     }
     
     const [text, setText] = useState("");
@@ -67,17 +56,17 @@ export default function TextForm(props) {
             <div className="mb-3">
                 <textarea className='form-control' value={text} style={{backgroundColor: props.mode==='dark'?'#b9c1c8':'white'}} onChange={onChanged} cols="30" rows="10"></textarea>
             </div>
-            <button className="btn btn-primary mx-3" onClick={function(event){handleUpClick();}}>To Uppercase</button>
-            <button className="btn btn-primary mx-3" onClick={function(event){handleLoClick();}}>To Lowercase</button>
-            <button className="btn btn-primary mx-3" onClick={function(event){clearText();}}>Clear Text</button>
+            <button disabled={text.length === 0} className="btn btn-primary mx-3 my-3" onClick={function(event){handleUpClick();}}>To Uppercase</button>
+            <button disabled={text.length === 0} className="btn btn-primary mx-3 my-3" onClick={function(event){handleLoClick();}}>To Lowercase</button>
+            <button disabled={text.length === 0} className="btn btn-primary mx-3 my-3" onClick={function(event){clearText();}}>Clear Text</button>
 		</div>
         <div className="container my-3" style={{color: props.mode==='dark'?'white':'black', textShadow: props.mode==='dark'?"4px 2px 6px black":"none"}}>
             <h2>Your text summary</h2>
-            <p style={{color:'black', textShadow:"none"}}>{countWords(text)} words and {text.length} characters</p>
+            <p style={{color:'black', textShadow:"none"}}>{text.split(" ").filter(elem => {return elem.length!==0}).length} words and {text.length} characters</p>
             {/* <p>{(0.008 * text.split(" ").length)} Minutes To Read</p> */}
-            <p style={{color:'black', textShadow:"none"}}>{countTime()} Minutes To Read</p>
+            <p style={{color:'black', textShadow:"none"}}>{(0.008 * text.split(" ").filter(elem => {return elem.length!==0}).length).toFixed(3)} Minutes To Read</p>
             <h2>Preview</h2>
-            <p style={{color:'black', textShadow:'none'}}>{text.length>0?text:"Enter something in the textbox above to preview it here"}</p>
+            <p style={{color:'black', textShadow:'none'}}>{text.length>0?text:"Nothing to preview!"}</p>
             <h3>Email availables in this text</h3>
             <ul style={{color:'black', textShadow:"none"}}>
                 {emails.map((email, index) => {

@@ -36,6 +36,13 @@ export default function Navbar(props) {
 						</li>
 					</ul>
 
+					<div className="d-flex">
+						<div className="bg-primary rounded mx-2" onClick={() => {props.toggleMode('primary')}} style={{height:'25px', width:'25px', cursor:'pointer'}}></div>
+						<div className="bg-danger rounded mx-2" onClick={() => {props.toggleMode('danger')}} style={{height:'25px', width:'25px', cursor:'pointer'}}></div>
+						<div className="bg-success rounded mx-2" onClick={() => {props.toggleMode('success')}} style={{height:'25px', width:'25px', cursor:'pointer'}}></div>
+						<div className="bg-warning rounded mx-2" onClick={() => {props.toggleMode('warning')}} style={{height:'25px', width:'25px', cursor:'pointer'}}></div>
+					</div>
+
 					{/* <form className="d-flex" role="search">
 						<input
 							className="form-control me-2"
